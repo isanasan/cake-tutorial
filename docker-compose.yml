@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  myapp:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    ports:
+      - "8888:80"
+      - "8765:8765"
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./html:/var/www/html
+
+  db:
+    image: mysql:5.7
+    volumes:
+      - "./docker/initdb:/docker-entrypoint-initdb.d"
+    environment:
+      MYSQL_DATABASE: sampledb
+      MYSQL_USER: sample-user
+      MYSQL_PASSWORD: 12345678
+      MYSQL_ROOT_PASSWORD: 12345678
