@@ -8,13 +8,14 @@ namespace App\Controller;
  * Users Controller
  *
  * @property \App\Model\Table\UsersTable $Users
+ * @property \App\Controller\Component\UtilComponent $Util
  * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class UsersController extends AppController
 {
     public function initialize(): void
     {
-        $this->loadComponent('RealtimeNotification');
+        $this->loadComponent('Util');
     }
 
     /**
@@ -24,6 +25,7 @@ class UsersController extends AppController
      */
     public function index()
     {
+        dd($this->Util->doComplexOperation(1,1));
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
