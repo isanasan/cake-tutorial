@@ -25,8 +25,11 @@ class UsersController extends AppController
      */
     public function index()
     {
-        dd($this->Util->doComplexOperation(1,1));
-        $users = $this->paginate($this->Users);
+        foreach ($this->Util->findUsersForIndex() as $user){
+            $user->full_name;
+        }
+
+        $users = $this->paginate($this->Util->findUsersForIndex());
 
         $this->set(compact('users'));
     }

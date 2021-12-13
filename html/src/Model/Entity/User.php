@@ -15,10 +15,11 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
- * @property \App\Model\Entity\UserLoginCredential[] $user_login_credentials
- * @property \App\Model\Entity\UserPublicProfile[] $user_public_profiles
- * @property \App\Model\Entity\UserPrivacy[] $user_privacies
+ * @property \App\Model\Entity\UserLoginCredential $user_login_credential
+ * @property \App\Model\Entity\UserPublicProfile $user_public_profile
+ * @property \App\Model\Entity\UserPrivacy $user_privacy
  * @property \App\Model\Entity\Article[] $articles
+ * @property string $full_name
  */
 class User extends Entity
 {
@@ -41,5 +42,11 @@ class User extends Entity
         'user_public_profiles' => true,
         'user_privacies' => true,
         'articles' => true,
+        'full_name' => true,
     ];
+
+    protected function _getFullName()
+    {
+        return $this->user_public_profile->first_name . ' ' . $this->user_public_profile->last_name;
+    }
 }
