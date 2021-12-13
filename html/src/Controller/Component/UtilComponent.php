@@ -33,4 +33,28 @@ class UtilComponent extends Component
             ->all()
             ->toList();
     }
+
+    /**
+     * @phpstan-param numeric-string $id
+     */
+    public function getFullNameById($id): ?string
+    {
+        $user = $this->fetchTable('Users')
+            ->find()
+            ->contain([
+                'UserPublicProfiles',
+            ])
+            ->where([
+                "Users.id = $id",
+            ])
+            ->first();
+
+        if (is_null($user)) {
+            return null;
+        }
+
+        assert($user instanceof \App\Model\Entity\User);
+
+        return $user->full_name;
+    }
 }

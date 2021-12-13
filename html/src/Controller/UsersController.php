@@ -29,7 +29,7 @@ class UsersController extends AppController
             $user->full_name;
         }
 
-        $users = $this->paginate($this->Util->findUsersForIndex());
+        $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
     }
@@ -43,11 +43,12 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
-        $user = $this->Users->get($id, [
-            'contain' => ['UserLoginCredentials', 'UserPrivacies', 'UserPublicProfiles', 'Articles'],
-        ]);
-
-        $this->set(compact('user'));
+        dd($this->Util->getFullNameById($id));
+        // $user = $this->Users->get($id, [
+        //     'contain' => ['UserLoginCredentials', 'UserPrivacies', 'UserPublicProfiles', 'Articles'],
+        // ]);
+        // 
+        // $this->set(compact('user'));
     }
 
     /**
